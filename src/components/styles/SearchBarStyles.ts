@@ -1,27 +1,38 @@
 import styled from 'styled-components';
+import { Theme } from './theme'; // Importamos la interfaz Theme
 
-export const SearchWrapper = styled.div`
+// Tipamos las props base (solo theme)
+interface ThemeProps {
+  theme: Theme;
+}
+
+// Tipamos las props de SearchButton (theme + disabled)
+interface ButtonProps extends ThemeProps {
+  disabled?: boolean;
+}
+
+export const SearchWrapper = styled.div<ThemeProps>`
   padding: ${({ theme }) => theme.spacing.lg};
   background: ${({ theme }) => theme.colors.secondary};
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
-  display: flex; /* Para alinear el input y el botón horizontalmente */
-  gap: ${({ theme }) => theme.spacing.sm}; /* Espacio entre el input y el botón */
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.sm};
 `;
 
-export const SearchInput = styled.input`
-  flex: 1; /* El input ocupa el espacio disponible */
+export const SearchInput = styled.input<ThemeProps>`
+  flex: 1;
   padding: ${({ theme }) => theme.spacing.md};
   font-size: ${({ theme }) => theme.font.size.md};
   font-family: ${({ theme }) => theme.font.family};
   border: none;
   border-radius: 25px;
-  background: ${({ theme }) => theme.colors.text}20;
-  color: ${({ theme }) => theme.colors.text};
+  background: ${({ theme }) => `rgba(${theme.colors.text}, 0.2)`}; // Corrección para opacidad
+  color: #191414;
   outline: none;
   transition: all 0.3s ease;
 
   &:focus {
-    background: ${({ theme }) => theme.colors.text}40;
+    background: ${({ theme }) => `rgba(${theme.colors.text}, 0.4)`}; // Corrección para opacidad
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 
@@ -30,14 +41,14 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const LoadingText = styled.p`
+export const LoadingText = styled.p<ThemeProps>`
   color: ${({ theme }) => theme.colors.gray};
   font-size: ${({ theme }) => theme.font.size.sm};
   text-align: center;
   margin-top: ${({ theme }) => theme.spacing.sm};
 `;
 
-export const SearchButton = styled.button`
+export const SearchButton = styled.button<ButtonProps>`
   padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
   font-size: ${({ theme }) => theme.font.size.md};
   font-family: ${({ theme }) => theme.font.family};

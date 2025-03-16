@@ -1,13 +1,13 @@
 import React from 'react';
-import SearchBar from './components/SearchBar.js';
-import SearchResults from './components/SearchResults.js';
-import Library from './components/Library.js';
+import SearchBar from './components/SearchBar';
+import SearchResults from './components/SearchResults';
+import Library from './components/Library';
 import {
   AppWrapper,
   Title,
   SectionTitle,
   ContentWrapper,
-} from './components/styles/AppStyles.js';
+} from './components/styles/AppStyles';
 
 const App = () => (
   <AppWrapper>

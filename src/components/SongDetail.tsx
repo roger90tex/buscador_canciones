@@ -4,16 +4,31 @@ import {
   DetailWrapper,
   DetailTitle,
   DetailText,
-} from './styles/SongDetailStyles.js';
+} from './styles/SongDetailStyles'; // Sin .js
 
-const SongDetail = ({ songId }) => {
-  const [details, setDetails] = useState(null);
+// Interfaz para los detalles de la canción/álbum desde iTunes
+interface SongDetails {
+  collectionName: string;
+  artistName: string;
+  primaryGenreName: string;
+  releaseDate: string;
+  artworkUrl100: string;
+}
+
+// Tipamos las props del componente
+interface SongDetailProps {
+  songId: number | string; // Puede ser número o string según iTunes
+}
+
+const SongDetail: React.FC<SongDetailProps> = ({ songId }) => {
+  const [details, setDetails] = useState<SongDetails | null>(null);
 
   useEffect(() => {
-    axios.get(`https://itunes.apple.com/lookup?id=${songId}&entity=song`)
+    axios
+      .get<{ results: SongDetails[] }>(`https://itunes.apple.com/lookup?id=${songId}&entity=song`)
       .then((res) => {
         if (res.data.results.length > 0) {
-          setDetails(res.data.results[0]); // Tomamos el primer resultado que tiene los detalles del álbum
+          setDetails(res.data.results[0]); // Tomamos el primer resultado
         }
       })
       .catch((error) => console.error('Error obteniendo detalles:', error));

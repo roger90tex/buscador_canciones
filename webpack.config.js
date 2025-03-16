@@ -10,7 +10,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 export default {
   mode: isDevelopment ? 'development' : 'production',
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -23,16 +23,16 @@ export default {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: [isDevelopment && 'react-refresh/babel'].filter(Boolean),
-          },
-        },
-      },
+        loader: 'babel-loader',
+        options: {
+        presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+        plugins: [isDevelopment && 'react-refresh/babel'].filter(Boolean),
+    },
+  },
+},
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
@@ -46,7 +46,7 @@ export default {
     isDevelopment && new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
 };
 

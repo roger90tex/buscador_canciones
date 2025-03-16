@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeSong } from '../redux/slice/librarySlice.js';
+import { removeSong } from '../redux/slices/librarySlice'; 
 import {
   LibraryWrapper,
   LibraryCard,
@@ -8,11 +8,12 @@ import {
   SongTitle,
   SongDetails,
   RemoveButton,
-} from './styles/LibraryStyles.js';
+} from './styles/LibraryStyles'; 
+import { RootState, AppDispatch } from '../redux/store';
 
-const Library = () => {
-  const { songs } = useSelector((state) => state.library);
-  const dispatch = useDispatch();
+const Library: React.FC = () => {
+  const { songs } = useSelector((state: RootState) => state.library);
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <LibraryWrapper>
@@ -21,10 +22,12 @@ const Library = () => {
           <SongInfo>
             <SongTitle>{song.title}</SongTitle>
             <SongDetails>
-            {song.strAlbum} - {song.strArtist}
+              {song.strAlbum} - {song.strArtist}
             </SongDetails>
           </SongInfo>
-          <RemoveButton onClick={() => dispatch(removeSong(song.idAlbum))}>Eliminar</RemoveButton>
+          <RemoveButton onClick={() => dispatch(removeSong(song.idAlbum))}>
+            Eliminar
+          </RemoveButton>
         </LibraryCard>
       ))}
     </LibraryWrapper>
